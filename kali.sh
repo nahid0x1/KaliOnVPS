@@ -80,7 +80,7 @@ apt update >> "$LOGFILE" 2>&1 || {
 
 
 # Step 6: APT Cache Clean
-echo -e "${YELLOW}[•] System Upgrading...${NC}"
+echo -e "${YELLOW}[•] Cache Clear...${NC}"
 apt autoremove --purge -y && apt clean >> "$LOGFILE" 2>&1 || {
   echo -e "${RED}[✘]  Cache clean failed. Check $LOGFILE for details.${NC}"
   exit 1
