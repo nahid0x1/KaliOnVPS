@@ -77,35 +77,15 @@ apt update >> "$LOGFILE" 2>&1 || {
   exit 1
 }
 
-# Step 6: apt transport https
-echo -e "${YELLOW}[•] Installing APT Transport HTTPS...${NC}"
-apt install apt-transport-https -y >> "$LOGFILE" 2>&1 || {
-  echo -e "${RED}[✘] APT transport Https failed. Check $LOGFILE for details.${NC}"
-  exit 1
-}
 
-# Step 7: Make Mirror HTTP to HTTPS
-echo -e "${YELLOW}[•] Mirror HTTP to HTTPS /etc/apt/sources.list...${NC}"
-rm -f /etc/apt/sources.list || {
-  echo -e "${RED}[✘] Failed to replace sources.list.${NC}"
-  exit 1
-}
-
-# Step 8:  For Faster Install
-echo -e "${YELLOW}[•] For Faster Install...${NC}"
-cat <<EOF > /etc/apt/sources.list
-deb [signed-by=/etc/apt/keyrings/kali.gpg] https://http.kali.org/kali kali-rolling main non-free contrib
-deb-src [signed-by=/etc/apt/keyrings/kali.gpg] https://http.kali.org/kali kali-rolling main contrib non-free non-free-firmware
-EOF
-
-# Step 9: Upgrading System
+# Step 6: Upgrading System
 echo -e "${YELLOW}[•] System Upgrading...${NC}"
 apt full-upgrade -y >> "$LOGFILE" 2>&1 || {
   echo -e "${RED}[✘] upgrade failed. Check $LOGFILE for details.${NC}"
   exit 1
 }
 
-# Step 10: APT Cache Clean
+# Step 7: APT Cache Clean
 echo -e "${YELLOW}[•] System Upgrading...${NC}"
 apt autoremove --purge -y && apt clean >> "$LOGFILE" 2>&1 || {
   echo -e "${RED}[✘]  Cache clean failed. Check $LOGFILE for details.${NC}"
