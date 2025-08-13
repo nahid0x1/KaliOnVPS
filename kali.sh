@@ -75,8 +75,36 @@ apt update >> "$LOGFILE" 2>&1 || {
 }
 
 
+# step 6
+echo -e "${YELLOW}[•] Upgrading System...${NC}"
+apt apt-transport-https -y
 
-# Step 6: APT Cache Clean
+# Step 8: HTTP To HTTPS.list
+echo -e "${YELLOW}[•] Removing old /etc/apt/sources.list...${NC}"
+rm -f /etc/apt/sources.list || {
+  echo -e "${RED}[✘] Failed to remove sources.list.${NC}"
+  exit 1
+}
+
+# Step 7: Write new sources.list
+echo -e "${YELLOW}[•] Writing HTTPS sources.list...${NC}"
+cat <<EOF > /etc/apt/sources.list
+deb [signed-by=/etc/apt/keyrings/kali.gpg] https://http.kali.org/kali kali-rolling main non-free contrib
+deb-src [signed-by=/etc/apt/keyrings/kali.gpg] https://http.kali.org/kali kali-rolling main contrib non-free non-free-firmware
+EOF
+
+# Step 8: Update APT
+echo -e "${YELLOW}[•] Updating APT sources...${NC}"
+apt update >> "$LOGFILE" 2>&1 || {
+  echo -e "${RED}[✘] APT update failed. Check $LOGFILE for details.${NC}"
+  exit 1
+}
+
+# step 9
+echo -e "${YELLOW}[•] Upgrading System...${NC}"
+apt full-upgrade -y
+
+# Step 10: APT Cache Clean
 echo -e "${YELLOW}[•] Cache Clear...${NC}"
 apt autoremove --purge -y && apt clean >> "$LOGFILE" 2>&1 || {
   echo -e "${RED}[✘]  Cache clean failed. Check $LOGFILE for details.${NC}"
