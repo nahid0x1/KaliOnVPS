@@ -80,7 +80,7 @@ echo -e "${YELLOW}[•] Upgrading System...${NC}"
 apt apt-transport-https -y
 
 # Step 8: HTTP To HTTPS.list
-echo -e "${YELLOW}[•] Removing old /etc/apt/sources.list...${NC}"
+echo -e "${YELLOW}[•] HTTP to HTTPS /etc/apt/sources.list...${NC}"
 rm -f /etc/apt/sources.list || {
   echo -e "${RED}[✘] Failed to remove sources.list.${NC}"
   exit 1
