@@ -101,8 +101,8 @@ apt update >> "$LOGFILE" 2>&1 || {
 }
 
 # step 9
-echo -e "${YELLOW}[•] Upgrading System...${NC}"
-apt full-upgrade -y
+#echo -e "${YELLOW}[•] Upgrading System...${NC}"
+#apt full-upgrade -y
 
 # Step 10: APT Cache Clean
 echo -e "${YELLOW}[•] Cache Clear...${NC}"
