@@ -77,7 +77,7 @@ apt update >> "$LOGFILE" 2>&1 || {
 
 # step 6
 echo -e "${YELLOW}[•] Upgrading System...${NC}"
-apt apt-transport-https -y
+apt install apt-transport-https -y
 
 # Step 8: HTTP To HTTPS.list
 echo -e "${YELLOW}[•] HTTP to HTTPS /etc/apt/sources.list...${NC}"
